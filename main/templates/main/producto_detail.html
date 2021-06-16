@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <title> LinioExp </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  </head>
+
+  <body>
+
+  <body background="fondo.png" bgcolor="AAAAAA">
+
+  <section class="section">
+    <div class="container">
+    <u><h1 class="title is-1"> LINIO EXPRESS <img src="https://thephonemarket.com.co/wp-content/uploads/2020/07/Logo-co.png" alt="Avatar" class='image' align="right" width="350" height="125" ></h1></u>
+    &nbsp
+    {% if user.is_authenticated %}
+    <h1 class="title is-4"> ¡Bienvenido/a, {{  user.get_username }}! </h1>
+    {% endif %}
+    <hr>
+    </div>
+
+    <div class="container">
+    <p><u><h1 class="title is-5"> {{ object.nombre }} </h1></u></p>
+    </div>
+
+    <div class="container">
+      <div class="columns">
+      {% for image in object.images.all %}
+        <div class="column is-2">
+            <figure class="image is-square">
+                <a href="{{ image.image.url }}">
+                    <img src="{{ image.image.url }}" alt="No hay imagen disponible">
+                </a>
+            </figure>
+        </div>
+        {% empty %}
+        <div class="column content">
+            <p>Aún no hay imágenes disponibles</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    &nbsp
+
+    <div class="container">
+    <ul>
+      <li><strong>Precio:</strong> {{ object.precio }}</li>
+      <li><strong>Descripción:</strong> {{ object.descripcion }}</li>
+      <li><strong>Categoría:</strong> {{ object.categoria.nombre }}</li>
+      <li><strong>Proveedor:</strong> {{ object.proveedor.razon_social }}</li>
+    </ul>
+
+    {% if user.is_authenticated %}
+    <hr>
+
+    <div class="block">
+
+      <a href="{% url 'add-to-cart' product_pk=object.pk %}" class='button is-primary'>
+        Añadir al carrito
+      </a>
+
+      <a href="{% url 'pedido-detail' %}" class='button'>
+        Ver carrito
+      </a>
+
+    </div>
+    {% endif %}
+
+    <hr>
+    <ul>
+      <p><u><li><a href="{% url 'product-list' %}">Volver a la lista de productos</a></li></u></p>
+      <p><u><li><a href="{% url 'home' %}">Volver a inicio</a></li></u></p>
+    </ul>
+    </div>
+  </section>
+
+  </body>
+
+</html>

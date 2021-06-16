@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="title is-4"> Registro de Usuario </h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Registrate">
+</form>
+
+<hr>
+
+<u><a href="{% url 'home' %}">Volver a inicio</a></u>
+
+{% endblock %}
