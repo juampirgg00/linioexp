@@ -15,16 +15,68 @@
 
 <body>
 
-    <section class="section">
-        <div class="container">
-          <u><h1 class="title is-1"> LINIO EXPRESS <img src="https://thephonemarket.com.co/wp-content/uploads/2020/07/Logo-co.png" alt="Avatar" class='image' align="right" width="200" height="125"></h1></u>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img src="https://blog.linio.com.pe/wp-content/uploads/2019/05/Linio-Logo-Oficial.png" width="110" height="50">
+        </a>
 
-          <hr>
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="{% url 'home' %}">
+            Inicio
+          </a>
+
+          <a class="navbar-item" href="{% url 'product-list' %}">
+            Productos
+          </a>
+            <a class="navbar-item">
+                <form action="{% url 'product-list' %}" method="get">
+                    <input class="input is-rounded" type="text" name="q" placeholder="Busca tu producto...">
+                </form>
+            </a>
         </div>
 
-        <div class="container">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+                {% if user.is_authenticated %}
+
+                    <a class="button is-white">¡Bienvenido/a, {{  user.get_username }}!</a>
+
+                    <a class="button is-white" href="{% url 'pedido-detail' %}">
+                        <img src="https://images.vexels.com/media/users/3/141186/isolated/preview/431ad815c9a8402ebdf354c82923c2a5-carrito-de-compras-6-by-vexels.png" width="40" height="50">
+                    </a>
+
+                    <a class="button is-primary" href="{% url 'logout' %}">
+                        <strong>Cierra Sesión</strong>
+                    </a>
+
+                {% else %}
+                  <a class="button is-white">¡Bienvenido/a!</a>
+                  <a class="button is-primary" href="{% url 'login' %}">
+                    <strong>Inicia Sesión</strong>
+                  </a>
+                  <a class="button is-light" href="{% url 'register' %}">
+                    Regístrate
+                  </a>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="section">
           {% block content %}
           {% endblock %}
-        </div>
     </section>
+
 </body>

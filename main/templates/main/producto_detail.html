@@ -11,18 +11,83 @@
 
   <body background="fondo.png" bgcolor="AAAAAA">
 
+
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img src="https://blog.linio.com.pe/wp-content/uploads/2019/05/Linio-Logo-Oficial.png" width="110" height="50">
+        </a>
+
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="{% url 'home' %}">
+            Inicio
+          </a>
+
+          <a class="navbar-item" href="{% url 'product-list' %}">
+            Productos
+          </a>
+            <a class="navbar-item">
+                <form action="{% url 'product-list' %}" method="get">
+                    <input class="input is-rounded" type="text" name="q" placeholder="Busca tu producto...">
+                </form>
+            </a>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+                {% if user.is_authenticated %}
+
+                    <a class="button is-white">¡Bienvenido/a, {{  user.get_username }}!</a>
+
+                    <a class="button is-white" href="{% url 'pedido-detail' %}">
+                        <img src="https://images.vexels.com/media/users/3/141186/isolated/preview/431ad815c9a8402ebdf354c82923c2a5-carrito-de-compras-6-by-vexels.png" width="40" height="50">
+                    </a>
+
+                    <a class="button is-primary" href="{% url 'logout' %}">
+                        <strong>Cierra Sesión</strong>
+                    </a>
+
+                {% else %}
+                  <a class="button is-white">¡Bienvenido/a!</a>
+                  <a class="button is-primary" href="{% url 'login' %}">
+                    <strong>Inicia Sesión</strong>
+                  </a>
+                  <a class="button is-light" href="{% url 'register' %}">
+                    Regístrate
+                  </a>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
   <section class="section">
-    <div class="container">
-    <u><h1 class="title is-1"> LINIO EXPRESS <img src="https://thephonemarket.com.co/wp-content/uploads/2020/07/Logo-co.png" alt="Avatar" class='image' align="right" width="350" height="125" ></h1></u>
-    &nbsp
-    {% if user.is_authenticated %}
-    <h1 class="title is-4"> ¡Bienvenido/a, {{  user.get_username }}! </h1>
-    {% endif %}
-    <hr>
-    </div>
 
     <div class="container">
-    <p><u><h1 class="title is-5"> {{ object.nombre }} </h1></u></p>
+    <p><u><h1 class="title is-2"> {{ object.nombre }} </h1></u></p>
     </div>
 
     <div class="container">
@@ -71,8 +136,7 @@
 
     <hr>
     <ul>
-      <p><u><li><a href="{% url 'product-list' %}">Volver a la lista de productos</a></li></u></p>
-      <p><u><li><a href="{% url 'home' %}">Volver a inicio</a></li></u></p>
+      <p><u><li><a href="{% url 'product-list' %}">Volver</a></li></u></p>
     </ul>
     </div>
   </section>
